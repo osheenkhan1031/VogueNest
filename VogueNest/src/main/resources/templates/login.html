@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VogueNest - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        vogueGold: '#D4AF37',
+                        vogueDark: '#1A1A1A',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .heading-serif {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="bg-[#121212] text-white min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden relative">
+
+<div class="absolute inset-0 z-0 opacity-40 lg:opacity-50">
+    <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=1920&q=80"
+         alt="VogueNest Editorial Background"
+         class="w-full h-full object-cover filter brightness-75 contrast-125 saturate-75">
+    <div class="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-[#121212] lg:bg-gradient-to-r lg:from-transparent lg:to-[#121212]"></div>
+</div>
+
+<div class="absolute pointer-events-none select-none z-10 opacity-[0.03] text-[12vw] font-bold tracking-widest heading-serif uppercase animate-pulse duration-3000">
+    VogueNest
+</div>
+
+<div class="w-full max-w-md bg-vogueDark/80 backdrop-blur-xl border border-white/10 p-8 rounded-2xl shadow-2xl z-20 relative overflow-hidden group">
+
+    <div class="absolute -right-10 -bottom-10 pointer-events-none select-none opacity-[0.02] text-7xl font-bold heading-serif uppercase tracking-wider transform -rotate-12">
+        Vogue
+    </div>
+
+    <div class="text-center mb-8">
+        <h1 class="heading-serif text-3xl font-light tracking-widest text-vogueGold uppercase">
+            Vogue<span class="font-normal text-white">Nest</span>
+        </h1>
+        <p class="text-xs text-stone-400 mt-2 uppercase tracking-widest">Sign in to your premium fashion portal</p>
+    </div>
+
+    <form action="/login" method="POST" class="space-y-6 relative z-10">
+
+        <div>
+            <label for="username" class="block text-xs uppercase tracking-wider text-stone-300 mb-2 font-medium">Username or Email</label>
+            <input type="text" id="username" name="username" required
+                   class="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-vogueGold focus:ring-1 focus:ring-vogueGold transition duration-300"
+                   placeholder="Enter your registered identifier">
+        </div>
+
+        <div>
+            <div class="flex justify-between items-center mb-2">
+                <label for="password" class="block text-xs uppercase tracking-wider text-stone-300 font-medium">Password</label>
+                <a href="#" class="text-xs text-vogueGold hover:underline tracking-wide">Forgot?</a>
+            </div>
+            <input type="password" id="password" name="password" required
+                   class="w-full bg-white/[0.03] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-stone-600 focus:outline-none focus:border-vogueGold focus:ring-1 focus:ring-vogueGold transition duration-300"
+                   placeholder="••••••••">
+        </div>
+
+        <div class="flex items-center">
+            <input type="checkbox" id="remember" name="remember"
+                   class="h-4 w-4 rounded bg-stone-900 border-white/10 text-vogueGold focus:ring-vogueGold accent-vogueGold">
+            <label for="remember" class="ml-2 block text-xs text-stone-400 uppercase tracking-wider select-none">Remember this session</label>
+        </div>
+
+        <button type="submit"
+                class="w-full bg-vogueGold hover:bg-yellow-600 text-vogueDark font-semibold text-sm uppercase tracking-widest py-3.5 rounded-lg transition duration-300 transform active:scale-[0.98] shadow-lg shadow-vogueGold/10">
+            Access Account
+        </button>
+    </form>
+
+    <!-- Footer Links-->
+    <div class="mt-8 pt-6 border-t border-white/5 text-center text-xs text-stone-400 space-y-3">
+        <p>Don't have an account? <a href="/signup" class="text-vogueGold hover:underline font-medium tracking-wide">Sign up here</a></p>
+        <p class="text-stone-500 text-[10px]">Protected connection. Unauthorized access is monitored.</p>
+    </div>
+</div>
+
+</body>
+</html>
