@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | VogueNest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelCream: '#FDFBF7',     /* Cozy Linen background */
+                        pastelWarm: '#F5ECE1',      /* Rich warm sand background */
+                        pastelBlush: '#FAF0EB',     /* Soft premium aesthetic blush pink */
+                        pastelCharcoal: '#1E2321',  /* Premium soft high-contrast dark text */
+                        pastelSage: '#4A6154',      /* Muted, deep organic forest sage green */
+                        pastelRose: '#E09295',      /* Rich warm aesthetic rose pink */
+                        pastelGold: '#DDA15E',      /* Vibrant earth gold */
+                        pastelTerracotta: '#C96A53',/* Bright terracotta coral accent */
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .heading-serif { font-family: 'Playfair Display', serif; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #FAF0EB; }
+        ::-webkit-scrollbar-thumb { background: #4A6154; border-radius: 6px; }
+
+        .premium-transition {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Pulsing watermark  */
+        @keyframes luxury-sage-pulse {
+            0%, 100% {
+                opacity: 0.08;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.18;
+                transform: scale(1.03);
+            }
+        }
+        .animate-watermark {
+            animation: luxury-sage-pulse 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-cover bg-center min-h-screen relative overflow-x-hidden p-4 md:p-12 flex items-center justify-center"
+      style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2000&auto=format&fit=crop');">
+
+<!-- Ambient Warm Dimmer Overlay  -->
+<div class="absolute inset-0 bg-pastelCharcoal/75 backdrop-blur-[3px] z-0"></div>
+
+<!-- Decorative Soft Orbs to play with visual lighting -->
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-pastelRose/20 rounded-full blur-[140px] pointer-events-none z-0"></div>
+<div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-pastelTerracotta/15 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+<div class="w-full max-w-6xl relative z-10 space-y-8 my-auto">
+
+    <!-- Top Action Bar -->
+    <div class="flex justify-between items-center pb-4 border-b border-white/20">
+        <a href="/shop" class="group text-[10px] uppercase tracking-[0.25em] text-white/90 hover:text-pastelRose font-bold flex items-center gap-2 transition-colors duration-300">
+            <span class="inline-block transform group-hover:-translate-x-1.5 transition-transform duration-300 text-pastelRose">←</span> Return to Catalogue
+        </a>
+        <h1 class="heading-serif text-3xl font-light text-pastelBlush uppercase tracking-[0.2em]">
+            Vogue<span class="text-white font-normal">Nest</span>
+        </h1>
+    </div>
+
+    <!-- Main Grid Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        <!-- Delivery Form-->
+        <div class="lg:col-span-7 bg-pastelCream border-2 border-pastelSage/30 p-8 rounded-3xl shadow-[0_25px_60px_rgba(74,97,84,0.35)] space-y-6">
+            <div class="borader-b border-pastelWarm pb-4 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-pastelSage/10 flex items-center justify-center text-pastelSage">
+                    <i class="fa-solid fa-truck-ramp-box text-xs"></i>
+                </div>
+                <div>
+                    <h2 class="heading-serif text-2xl font-bold tracking-wide text-pastelCharcoal">Delivery Specifications</h2>
+                    <p class="text-[9px] text-pastelCharcoal/50 uppercase tracking-widest font-extrabold mt-0.5">Please provide your absolute shipping address</p>
+                </div>
+            </div>
+
+            <form th:action="@{/place-order}" method="POST" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider text-pastelCharcoal/80 font-bold mb-2">First Name</label>
+                        <input type="text" name="firstName" required placeholder="e.g. Osheen"
+                               class="w-full bg-white border border-pastelWarm rounded-xl px-4 py-3 text-sm text-pastelCharcoal focus:border-pastelSage focus:ring-1 focus:ring-pastelSage focus:outline-none transition-all duration-300 placeholder-pastelCharcoal/30">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider text-pastelCharcoal/80 font-bold mb-2">Last Name</label>
+                        <input type="text" name="lastName" required placeholder="e.g. Khan"
+                               class="w-full bg-white border border-pastelWarm rounded-xl px-4 py-3 text-sm text-pastelCharcoal focus:border-pastelSage focus:ring-1 focus:ring-pastelSage focus:outline-none transition-all duration-300 placeholder-pastelCharcoal/30">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-pastelCharcoal/80 font-bold mb-2">Street Address</label>
+                    <input type="text" name="address" required placeholder="Apt, Suite, Street name"
+                           class="w-full bg-white border border-pastelWarm rounded-xl px-4 py-3 text-sm text-pastelCharcoal focus:border-pastelSage focus:ring-1 focus:ring-pastelSage focus:outline-none transition-all duration-300 placeholder-pastelCharcoal/30">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider text-pastelCharcoal/80 font-bold mb-2">City</label>
+                        <input type="text" name="city" required placeholder="e.g. New York"
+                               class="w-full bg-white border border-pastelWarm rounded-xl px-4 py-3 text-sm text-pastelCharcoal focus:border-pastelSage focus:ring-1 focus:ring-pastelSage focus:outline-none transition-all duration-300 placeholder-pastelCharcoal/30">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider text-pastelCharcoal/80 font-bold mb-2">State</label>
+                        <input type="text" name="state" required placeholder="e.g. NY"
+                               class="w-full bg-white border border-pastelWarm rounded-xl px-4 py-3 text-sm text-pastelCharcoal focus:border-pastelSage focus:ring-1 focus:ring-pastelSage focus:outline-none transition-all duration-300 placeholder-pastelCharcoal/30">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-wider text-pastelCharcoal/80 font-bold mb-2">Postal Code</label>
+                        <input type="text" name="postalCode" required placeholder="e.g. 10001"
+                               class="w-full bg-white border border-pastelWarm rounded-xl px-4 py-3 text-sm text-pastelCharcoal focus:border-pastelSage focus:ring-1 focus:ring-pastelSage focus:outline-none transition-all duration-300 placeholder-pastelCharcoal/30">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-pastelCharcoal/80 font-bold mb-2">Contact Phone</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-pastelCharcoal/40">
+                            <i class="fa-solid fa-phone text-xs"></i>
+                        </span>
+                        <input type="tel" name="phone" required placeholder="+1 (555) 000-0000"
+                               class="w-full bg-white border border-pastelWarm rounded-xl pl-10 pr-4 py-3 text-sm text-pastelCharcoal focus:border-pastelSage focus:ring-1 focus:ring-pastelSage focus:outline-none transition-all duration-300 placeholder-pastelCharcoal/30">
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-pastelWarm mt-6">
+                    <button type="submit" class="w-full bg-pastelSage hover:bg-pastelSage/90 text-white font-bold py-4 rounded-xl uppercase tracking-widest text-[10px] transition-all duration-300 shadow-lg shadow-pastelSage/20 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-shield-halved"></i> Secure Payment & Place Order
+                    </button>
+                    <p class="text-[9px] text-pastelCharcoal/40 text-center mt-3 uppercase tracking-wider font-semibold">
+                        <i class="fa-solid fa-lock text-[8px] mr-1"></i> SSL Encrypted & Secure checkout pipeline
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Order Summary Side Panel  -->
+        <div class="lg:col-span-5 bg-pastelBlush border-2 border-white/85 p-8 rounded-3xl shadow-2xl space-y-6">
+            <div class="border-b border-pastelWarm pb-4 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-pastelRose/10 flex items-center justify-center text-pastelRose">
+                    <i class="fa-solid fa-basket-shopping text-xs"></i>
+                </div>
+                <div>
+                    <h2 class="heading-serif text-2xl font-bold tracking-wide text-pastelCharcoal">Order Summary</h2>
+                    <p class="text-[9px] text-pastelCharcoal/50 uppercase tracking-widest font-extrabold mt-0.5">Aesthetic curated essentials</p>
+                </div>
+            </div>
+
+            <!-- Items container -->
+            <div class="divide-y divide-pastelWarm/80 max-h-[320px] overflow-y-auto pr-2 space-y-4">
+                <div th:each="item : ${cartItems}" class="flex gap-4 pt-4 first:pt-0 items-center bg-white/70 p-3.5 rounded-2xl border border-pastelWarm/60 hover:border-pastelRose/30 transition-all duration-300">
+                    <div class="relative">
+                        <img th:src="${item.product.imageUrl}" class="w-14 h-18 object-cover rounded-xl border border-pastelWarm bg-pastelWarm" alt="Cart Element" onerror="this.src='https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600&auto=format&fit=crop'">
+                        <span class="absolute -top-1.5 -right-1.5 bg-pastelSage text-white text-[8px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white" th:text="${item.quantity}">1</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="heading-serif text-sm font-semibold text-pastelCharcoal truncate" th:text="${item.product.name}">Minimalist Silk Dress</h4>
+                        <p class="text-[9px] text-pastelCharcoal/50 uppercase tracking-widest font-extrabold mt-0.5">
+                            Size: <span class="font-bold text-pastelRose" th:text="${item.size}">S</span>
+                        </p>
+                    </div>
+                    <span class="text-xs font-black text-pastelTerracotta" th:text="'$' + ${#numbers.formatDecimal(item.product.price * item.quantity, 1, 2)}">$189.00</span>
+                </div>
+
+                <div th:if="${#lists.isEmpty(cartItems)}" class="text-center py-8 text-pastelCharcoal/40 text-[10px] uppercase tracking-widest font-bold">
+                    <i class="fa-regular fa-folder-open block text-lg mb-2"></i> No active items found in bag.
+                </div>
+            </div>
+
+            <!-- Total Pricing  -->
+            <div class="border-t border-pastelWarm/90 pt-4 space-y-3.5 text-xs">
+                <div class="flex justify-between text-pastelCharcoal/60 uppercase tracking-wider text-[9px] font-extrabold">
+                    <span>Bag Subtotal</span>
+                    <span class="text-pastelCharcoal font-black" th:text="'$' + ${#numbers.formatDecimal(subtotal, 1, 2)}">$0.00</span>
+                </div>
+                <div class="flex justify-between text-pastelCharcoal/60 uppercase tracking-wider text-[9px] font-extrabold">
+                    <span>Shipping fee</span>
+                    <span class="text-pastelSage font-black uppercase text-[8px] tracking-widest">Complimentary</span>
+                </div>
+                <div class="border-t border-pastelWarm pt-4 flex justify-between text-sm font-bold bg-white/60 p-4 rounded-2xl border border-pastelWarm/40">
+                    <span class="text-pastelCharcoal/70 uppercase tracking-widest text-[10px] font-black">Total Due</span>
+                    <span class="text-pastelTerracotta text-xl font-black" th:text="'$' + ${#numbers.formatDecimal(subtotal, 1, 2)}">$0.00</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

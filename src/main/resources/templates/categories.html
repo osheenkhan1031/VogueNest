@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VogueNest - Premium Curated Collections</title>
+    <!-- Tailwind CSS Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelCream: '#FDFBF7',     /* Cozy Linen background */
+                        pastelWarm: '#F5ECE1',      /* Rich warm sand background */
+                        pastelBlush: '#FAF0EB',     /* Soft premium aesthetic blush pink */
+                        pastelCharcoal: '#1E2321',  /* Premium soft high-contrast dark text */
+                        pastelSage: '#4A6154',      /* Muted, deep organic forest sage green */
+                        pastelRose: '#E09295',      /* Rich warm aesthetic rose pink */
+                        pastelGold: '#DDA15E',      /* Vibrant earth gold */
+                        pastelTerracotta: '#C96A53',/* Bright terracotta coral accent */
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Premium Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .heading-serif { font-family: 'Playfair Display', serif; }
+
+        /* Custom Elegant Rotation for Watermark Accent */
+        .vertical-text {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        /* Ultra Smooth Transition curves for a premium feeling */
+        .premium-transition {
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-tr from-pastelBlush via-pastelCream to-pastelWarm text-pastelCharcoal min-h-screen relative overflow-x-hidden flex flex-col justify-between p-8 md:p-16">
+
+<!-- Soft Ambient Decorative Lighting Orbs with Pink/Rose highlights -->
+<div class="absolute top-0 right-0 w-[700px] h-[700px] bg-pastelRose/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
+<div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-pastelTerracotta/10 rounded-full blur-[130px] pointer-events-none z-0"></div>
+
+<div class="w-full max-w-7xl mx-auto relative z-10 my-auto">
+
+    <!-- Top Minimalist Back Action & Brand Header -->
+    <div class="flex justify-between items-center mb-16">
+        <a href="/" class="group text-[10px] uppercase tracking-[0.25em] text-pastelCharcoal/60 hover:text-pastelTerracotta font-bold flex items-center gap-2 transition-colors duration-300">
+            <span class="inline-block transform group-hover:-translate-x-1.5 transition-transform duration-300">←</span> Back to Home
+        </a>
+        <a href="/" class="heading-serif text-xl font-bold tracking-widest text-pastelSage uppercase">
+            Vogue<span class="text-pastelCharcoal font-normal">Nest</span>
+        </a>
+    </div>
+
+    <!-- Page Header (Blush Rose Accent Highlight) -->
+    <div class="text-center mb-20 space-y-3">
+        <p class="text-[10px] uppercase tracking-[0.45em] text-pastelRose font-extrabold">Cozy & Aesthetic Living</p>
+        <h1 class="heading-serif text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-pastelCharcoal">
+            Shop by <span class="italic text-pastelRose font-medium">Category</span>
+        </h1>
+        <div class="w-20 h-[2px] bg-pastelRose/30 mx-auto mt-4"></div>
+    </div>
+
+    <!-- Category Grid with Extended Card Proportions and Scale Up Animations -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+
+        <!-- Category Card: Dresses (Enlarged with dynamic 3D pop up hover layout) -->
+        <a href="/shop?category=dresses" class="group flex flex-col bg-white/70 backdrop-blur-md border border-pastelWarm/60 rounded-2xl p-4 hover:border-pastelRose/40 hover:-translate-y-5 shadow-sm hover:shadow-2xl hover:shadow-pastelRose/15 premium-transition">
+            <div class="aspect-[3/4.6] rounded-xl overflow-hidden bg-pastelWarm mb-5 relative shadow-inner">
+                <img src="/images/catdresses.jpg" alt="Dresses Collection"
+                     class="w-full h-full object-cover filter brightness-[95%] contrast-[103%] group-hover:scale-110 group-hover:brightness-100 premium-transition"
+                     onerror="this.src='https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600&auto=format&fit=crop'">
+                <!-- Floating category tag badges -->
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[8px] tracking-[0.25em] font-extrabold text-pastelRose shadow-md">
+                    01 / DRESSES
+                </div>
+            </div>
+            <div class="space-y-1.5 px-1 pb-1">
+                <h3 class="heading-serif text-xl text-pastelCharcoal group-hover:text-pastelRose font-medium tracking-wide transition-colors duration-300">Dresses</h3>
+                <span class="text-[9px] uppercase tracking-[0.2em] text-pastelCharcoal/40 group-hover:text-pastelTerracotta font-bold flex items-center gap-1.5 transition-colors duration-300">
+                    Explore Collection <span class="transform group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                </span>
+            </div>
+        </a>
+
+        <!-- Category Card: Footwear (Enlarged and aligned) -->
+        <a href="/shop?category=footwear" class="group flex flex-col bg-white/70 backdrop-blur-md border border-pastelWarm/60 rounded-2xl p-4 hover:border-pastelRose/40 hover:-translate-y-5 shadow-sm hover:shadow-2xl hover:shadow-pastelRose/15 premium-transition">
+            <div class="aspect-[3/4.6] rounded-xl overflow-hidden bg-pastelWarm mb-5 relative shadow-inner">
+                <img src="/images/catfootwear.jpeg" alt="Footwear Collection"
+                     class="w-full h-full object-cover filter brightness-[95%] contrast-[103%] group-hover:scale-110 group-hover:brightness-100 premium-transition"
+                     onerror="this.src='https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600&auto=format&fit=crop'">
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[8px] tracking-[0.25em] font-extrabold text-pastelRose shadow-md">
+                    02 / LOOKBOOK
+                </div>
+            </div>
+            <div class="space-y-1.5 px-1 pb-1">
+                <h3 class="heading-serif text-xl text-pastelCharcoal group-hover:text-pastelRose font-medium tracking-wide transition-colors duration-300">Footwear</h3>
+                <span class="text-[9px] uppercase tracking-[0.2em] text-pastelCharcoal/40 group-hover:text-pastelTerracotta font-bold flex items-center gap-1.5 transition-colors duration-300">
+                    Explore Collection <span class="transform group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                </span>
+            </div>
+        </a>
+
+        <!-- Category Card: Accessories (Enlarged and aligned) -->
+        <a href="/shop?category=accessories" class="group flex flex-col bg-white/70 backdrop-blur-md border border-pastelWarm/60 rounded-2xl p-4 hover:border-pastelTerracotta/40 hover:-translate-y-5 shadow-sm hover:shadow-2xl hover:shadow-pastelTerracotta/15 premium-transition">
+            <div class="aspect-[3/4.6] rounded-xl overflow-hidden bg-pastelWarm mb-5 relative shadow-inner">
+                <img src="/images/cataccessories.jpg" alt="Accessories Collection"
+                     class="w-full h-full object-cover filter brightness-[95%] contrast-[103%] group-hover:scale-110 group-hover:brightness-100 premium-transition"
+                     onerror="this.src='https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600&auto=format&fit=crop'">
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[8px] tracking-[0.25em] font-extrabold text-pastelTerracotta shadow-md">
+                    03 / DETAILS
+                </div>
+            </div>
+            <div class="space-y-1.5 px-1 pb-1">
+                <h3 class="heading-serif text-xl text-pastelCharcoal group-hover:text-pastelTerracotta font-medium tracking-wide transition-colors duration-300">Accessories</h3>
+                <span class="text-[9px] uppercase tracking-[0.2em] text-pastelCharcoal/40 group-hover:text-pastelTerracotta font-bold flex items-center gap-1.5 transition-colors duration-300">
+                    Explore Collection <span class="transform group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                </span>
+            </div>
+        </a>
+
+        <!-- Category Card: Makeup (Enlarged and aligned) -->
+        <a href="/shop?category=makeup" class="group flex flex-col bg-white/70 backdrop-blur-md border border-pastelWarm/60 rounded-2xl p-4 hover:border-pastelRose/40 hover:-translate-y-5 shadow-sm hover:shadow-2xl hover:shadow-pastelRose/15 premium-transition">
+            <div class="aspect-[3/4.6] rounded-xl overflow-hidden bg-pastelWarm mb-5 relative shadow-inner">
+                <img src="/images/catmakeup.jpg" alt="Makeup Essentials"
+                     class="w-full h-full object-cover filter brightness-[95%] contrast-[103%] group-hover:scale-110 group-hover:brightness-100 premium-transition"
+                     onerror="this.src='https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=600&auto=format&fit=crop'">
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[8px] tracking-[0.25em] font-extrabold text-pastelRose shadow-md">
+                    04 / ESSENTIALS
+                </div>
+            </div>
+            <div class="space-y-1.5 px-1 pb-1">
+                <h3 class="heading-serif text-xl text-pastelCharcoal group-hover:text-pastelRose font-medium tracking-wide transition-colors duration-300">Makeup</h3>
+                <span class="text-[9px] uppercase tracking-[0.2em] text-pastelCharcoal/40 group-hover:text-pastelTerracotta font-bold flex items-center gap-1.5 transition-colors duration-300">
+                    Explore Collection <span class="transform group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                </span>
+            </div>
+        </a>
+
+        <!-- Category Card: Skincare (Enlarged and aligned) -->
+        <a href="/shop?category=skincare" class="group flex flex-col bg-white/70 backdrop-blur-md border border-pastelWarm/60 rounded-2xl p-4 hover:border-pastelTerracotta/40 hover:-translate-y-5 shadow-sm hover:shadow-2xl hover:shadow-pastelTerracotta/15 premium-transition">
+            <div class="aspect-[3/4.6] rounded-xl overflow-hidden bg-pastelWarm mb-5 relative shadow-inner">
+                <img src="/images/catskincare.jpg" alt="Skincare Rituals"
+                     class="w-full h-full object-cover filter brightness-[95%] contrast-[103%] group-hover:scale-110 group-hover:brightness-100 premium-transition"
+                     onerror="this.src='https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?q=80&w=600&auto=format&fit=crop'">
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[8px] tracking-[0.25em] font-extrabold text-pastelTerracotta shadow-md">
+                    05 / RITUALS
+                </div>
+            </div>
+            <div class="space-y-1.5 px-1 pb-1">
+                <h3 class="heading-serif text-xl text-pastelCharcoal group-hover:text-pastelTerracotta font-medium tracking-wide transition-colors duration-300">Skincare</h3>
+                <span class="text-[9px] uppercase tracking-[0.2em] text-pastelCharcoal/40 group-hover:text-pastelTerracotta font-bold flex items-center gap-1.5 transition-colors duration-300">
+                    Explore Collection <span class="transform group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                </span>
+            </div>
+        </a>
+
+    </div>
+</div>
+
+<!-- Aesthetic Decorative Bottom Footer Statement -->
+<footer class="w-full max-w-7xl mx-auto border-t border-pastelRose/20 pt-8 mt-24 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] tracking-widest text-pastelCharcoal/40 font-bold uppercase relative z-10">
+    <div>&copy; 2026 VogueNest Collective. All Rights Reserved.</div>
+    <div class="flex gap-8">
+        <a href="#" class="hover:text-pastelRose transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-pastelRose transition-colors">Terms of Service</a>
+    </div>
+</footer>
+
+</body>
+</html>

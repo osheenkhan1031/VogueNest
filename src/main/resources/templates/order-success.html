@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | VogueNest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelCream: '#FDFBF7',     /* Cozy Linen background */
+                        pastelWarm: '#F5ECE1',      /* Rich warm sand background split */
+                        pastelBlush: '#FAF0EB',     /* Soft premium aesthetic blush pink */
+                        pastelCharcoal: '#1E2321',  /* Premium soft high-contrast dark text */
+                        pastelSage: '#4A6154',      /* Muted, deep organic forest sage green */
+                        pastelRose: '#E09295',      /* Rich warm aesthetic rose pink */
+                        pastelGold: '#DDA15E',      /* Vibrant earth gold */
+                        pastelTerracotta: '#C96A53',/* Bright terracotta coral accent */
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .heading-serif { font-family: 'Playfair Display', serif; }
+
+        @keyframes premium-bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        .animate-bounce-slow {
+            animation: premium-bounce 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-cover bg-center min-h-screen relative overflow-hidden flex items-center justify-center p-6"
+      style="background-image: url('https://images.unsplash.com/photo-1513885041144-809f416c97a7?q=80&w=2000&auto=format&fit=crop');">
+
+<!-- Ambient Soft Dimmer Overlay -->
+<div class="absolute inset-0 bg-pastelCharcoal/45 z-0"></div>
+
+<!-- Decorative Soft Ambient Orbs -->
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-pastelRose/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
+<div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-pastelTerracotta/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+<!-- Success Card Container-->
+<div class="w-full max-w-md bg-pastelCream/98 border-2 border-pastelWarm p-10 rounded-3xl shadow-2xl text-center relative z-10 space-y-6">
+
+    <!-- Success  -->
+    <div class="w-20 h-20 bg-pastelSage/10 rounded-full flex items-center justify-center mx-auto border-2 border-pastelSage shadow-xl shadow-pastelSage/15 animate-bounce-slow">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-pastelSage" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+    </div>
+
+    <!-- Title and details -->
+    <div class="space-y-2">
+        <h1 class="heading-serif text-3xl font-bold text-pastelSage uppercase tracking-[0.15em]">Order Confirmed</h1>
+        <p class="text-[9px] text-pastelCharcoal/60 uppercase tracking-[0.25em] font-extrabold">Thank you for choosing VogueNest</p>
+    </div>
+
+    <!-- background board -->
+    <div class="border-2 border-pastelWarm bg-white p-6 rounded-2xl text-xs text-pastelCharcoal/80 space-y-4 leading-relaxed shadow-inner">
+        <p class="font-medium text-pastelCharcoal/70">Thank you for shopping with us! Your luxury order has been successfully placed.</p>
+        <div class="w-12 h-[1.5px] bg-pastelRose/40 mx-auto"></div>
+        <p class="text-pastelTerracotta font-black uppercase tracking-widest text-[9px]">
+            <i class="fa-solid fa-plane-departure mr-1"></i> Estimated delivery: 3 - 5 business days
+        </p>
+    </div>
+
+    <!-- Action Redirect Buttons -->
+    <div class="space-y-3 pt-2">
+        <a href="/shop" class="block w-full bg-pastelSage hover:bg-pastelSage/90 text-white font-bold py-4 rounded-xl uppercase tracking-widest text-[10px] transition duration-300 shadow-md shadow-pastelSage/20">
+            Continue Shopping
+        </a>
+        <a href="/categories" class="block w-full bg-white border border-pastelWarm hover:border-pastelSage hover:text-pastelSage text-pastelCharcoal/60 py-3.5 rounded-xl uppercase tracking-widest text-[10px] transition duration-300 font-bold">
+            View Curated Collections
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

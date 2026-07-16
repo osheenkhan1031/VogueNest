@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Catalogue | VogueNest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelCream: '#FDFBF7',     /* Cozy Linen background */
+                        pastelWarm: '#F5ECE1',      /* Rich warm sand background split */
+                        pastelBlush: '#FAF0EB',     /* Soft premium aesthetic blush pink */
+                        pastelCharcoal: '#1E2321',  /* Premium soft high-contrast dark text */
+                        pastelSage: '#4A6154',      /* Muted, deep organic forest sage green */
+                        pastelRose: '#E09295',      /* Rich warm aesthetic rose pink */
+                        pastelGold: '#DDA15E',      /* Vibrant earth gold */
+                        pastelTerracotta: '#C96A53',/* Bright terracotta coral accent */
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .heading-serif { font-family: 'Playfair Display', serif; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #FAF0EB; }
+        ::-webkit-scrollbar-thumb { background: #4A6154; border-radius: 6px; }
+
+        /* Premium ease-out animations for luxury layouts */
+        .premium-transition {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-tr from-pastelBlush via-pastelCream to-pastelWarm text-pastelCharcoal min-h-screen relative overflow-x-hidden p-6 md:p-12">
+
+
+<div class="absolute top-0 right-0 w-[600px] h-[600px] bg-pastelRose/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
+<div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-pastelTerracotta/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+<div class="w-full max-w-7xl mx-auto relative z-10">
+
+    <!-- Top Nav Action Area -->
+    <div class="flex justify-between items-center mb-16">
+        <a href="/categories" class="group text-[10px] uppercase tracking-[0.25em] text-pastelCharcoal/60 hover:text-pastelTerracotta font-bold flex items-center gap-2 transition-colors duration-300">
+            <span class="inline-block transform group-hover:-translate-x-1.5 transition-transform duration-300">←</span> Back to Categories
+        </a>
+
+        <div class="flex items-center gap-6">
+            <div th:if="${isLoggedIn}" class="text-[11px] uppercase tracking-wider text-pastelCharcoal/70 font-semibold">
+                Bonjour, <span class="text-pastelSage font-bold" th:text="${user.fullName}">Osheen</span>
+            </div>
+            <a th:if="${isLoggedIn}" href="/logout" class="text-[10px] uppercase tracking-widest text-pastelCharcoal/50 hover:text-pastelTerracotta transition-colors duration-300 font-bold">Logout</a>
+            <a th:if="${!isLoggedIn}" href="/login" class="text-[10px] uppercase tracking-widest text-pastelSage hover:text-pastelTerracotta hover:underline transition-all duration-300 font-bold">Sign In</a>
+
+            <!-- Modern Pastel Accent Bag Indicator Trigger -->
+            <button class="bg-pastelSage hover:bg-pastelSage/90 text-white font-bold py-2.5 px-6 rounded-full uppercase tracking-widest text-[9px] transition-all duration-300 shadow-md shadow-pastelSage/10 flex items-center gap-3" onclick="toggleCart(true)">
+                <i class="fa-solid fa-bag-shopping text-[10px]"></i> Bag <span class="bg-white text-pastelSage px-2.5 py-0.5 rounded-full text-[8px] font-extrabold" id="cart-badge">0</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Editorial Header Title -->
+    <div class="text-center mb-16 space-y-3">
+        <p class="text-[10px] uppercase tracking-[0.45em] text-pastelRose font-extrabold">Cozy & Aesthetic Living</p>
+        <h1 class="heading-serif text-4xl md:text-5xl font-light tracking-wide text-pastelCharcoal">
+            The <span class="italic text-pastelRose font-medium">Catalogue</span>
+        </h1>
+        <div class="w-20 h-[2px] bg-pastelRose/30 mx-auto mt-4"></div>
+    </div>
+
+    <!-- Filters with Pastel Contrast Highlights -->
+    <div class="flex justify-center gap-3 mb-16 flex-wrap">
+        <a href="/shop?category=all" th:classappend="${activeCategory == 'all'} ? 'border-pastelSage text-pastelSage bg-pastelSage/10 font-bold shadow-sm' : 'border-pastelWarm/70 text-pastelCharcoal/50'" class="border px-6 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold hover:border-pastelSage hover:text-pastelSage transition-all duration-300">All</a>
+        <a href="/shop?category=dresses" th:classappend="${activeCategory == 'dresses'} ? 'active border-pastelSage text-pastelSage bg-pastelSage/10 font-bold shadow-sm' : 'border-pastelWarm/70 text-pastelCharcoal/50'" class="border px-6 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold hover:border-pastelSage hover:text-pastelSage transition-all duration-300">Dresses</a>
+        <a href="/shop?category=footwear" th:classappend="${activeCategory == 'footwear'} ? 'active border-pastelSage text-pastelSage bg-pastelSage/10 font-bold shadow-sm' : 'border-pastelWarm/70 text-pastelCharcoal/50'" class="border px-6 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold hover:border-pastelSage hover:text-pastelSage transition-all duration-300">Footwear</a>
+        <a href="/shop?category=accessories" th:classappend="${activeCategory == 'accessories'} ? 'active border-pastelSage text-pastelSage bg-pastelSage/10 font-bold shadow-sm' : 'border-pastelWarm/70 text-pastelCharcoal/50'" class="border px-6 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold hover:border-pastelSage hover:text-pastelSage transition-all duration-300">Accessories</a>
+        <a href="/shop?category=makeup" th:classappend="${activeCategory == 'makeup'} ? 'active border-pastelSage text-pastelSage bg-pastelSage/10 font-bold shadow-sm' : 'border-pastelWarm/70 text-pastelCharcoal/50'" class="border px-6 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold hover:border-pastelSage hover:text-pastelSage transition-all duration-300">Makeup</a>
+        <a href="/shop?category=skincare" th:classappend="${activeCategory == 'skincare'} ? 'active border-pastelSage text-pastelSage bg-pastelSage/10 font-bold shadow-sm' : 'border-pastelWarm/70 text-pastelCharcoal/50'" class="border px-6 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-semibold hover:border-pastelSage hover:text-pastelSage transition-all duration-300">Skincare</a>
+    </div>
+
+    <!-- Active Product Grid  -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div class="group flex flex-col bg-white/70 backdrop-blur-md border border-pastelWarm/60 rounded-2xl p-4 hover:border-pastelSage/30 hover:-translate-y-3 shadow-sm hover:shadow-xl hover:shadow-pastelSage/5 premium-transition relative" th:each="product : ${products}">
+
+            <div class="aspect-[3/4] rounded-xl overflow-hidden bg-pastelWarm mb-5 relative cursor-pointer shadow-inner"
+                 th:attr="onclick=|openQuickView('${product.id}', '${product.name}', '${product.price}', '${product.imageUrl}', '${product.description}', '${product.category}')|">
+
+                <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-md text-pastelSage text-[8px] uppercase tracking-[0.2em] px-3 py-1.5 font-bold rounded-full shadow-sm" th:text="${product.category}">Category</span>
+
+                <img th:src="${product.imageUrl}" th:alt="${product.name}" class="w-full h-full object-cover filter brightness-[97%] contrast-[102%] group-hover:scale-105 premium-transition" onerror="this.src='https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600&auto=format&fit=crop'">
+
+                <div class="absolute bottom-0 left-0 w-full bg-pastelSage/90 backdrop-blur-sm text-white text-center py-3.5 text-[9px] uppercase tracking-[0.25em] font-bold translate-y-full group-hover:translate-y-0 premium-transition">Quick View</div>
+            </div>
+
+            <div class="space-y-1.5 flex-1 flex flex-col justify-between">
+                <div class="space-y-1">
+                    <h3 class="heading-serif text-lg text-pastelCharcoal group-hover:text-pastelSage font-medium tracking-wide transition-colors duration-300 truncate cursor-pointer"
+                        th:text="${product.name}"
+                        th:attr="onclick=|openQuickView('${product.id}', '${product.name}', '${product.price}', '${product.imageUrl}', '${product.description}', '${product.category}')|">Minimalist Silk Dress</h3>
+                    <p class="text-xs text-pastelCharcoal/60 line-clamp-2 leading-relaxed font-light" th:text="${product.description}">Curated design using high-fashion fabrics.</p>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-pastelWarm/60 mt-2">
+                    <span class="text-pastelTerracotta font-bold text-sm" th:text="'$' + ${#numbers.formatDecimal(product.price, 1, 2)}">$189.00</span>
+                    <button class="border border-pastelSage/30 hover:border-pastelSage hover:bg-pastelSage hover:text-white px-4 py-2 rounded-lg text-[9px] uppercase tracking-[0.15em] font-bold transition-all duration-300"
+                            th:attr="onclick=|addToBagDirect('${product.id}', '${product.name}', ${product.price}, '${product.imageUrl}', '${product.category}')|">
+                        Add to Bag
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Sliding Cart Drawer Panel -->
+<div class="cart-overlay fixed inset-0 bg-pastelCharcoal/40 backdrop-blur-sm z-50 invisible opacity-0 premium-transition" id="cart-overlay" onclick="toggleCart(false)">
+    <div class="cart-drawer fixed top-0 right-0 w-full max-w-md h-full bg-pastelCream/98 backdrop-blur-md border-l border-pastelWarm/80 p-8 flex flex-col justify-between translate-x-full transition-transform duration-500 shadow-2xl" onclick="event.stopPropagation()">
+
+        <div class="flex justify-between items-center pb-6 border-b border-pastelWarm/60">
+            <h2 class="heading-serif text-xl text-pastelCharcoal font-medium tracking-wide">Shopping Bag</h2>
+            <button class="text-pastelCharcoal/50 hover:text-pastelCharcoal transition-colors duration-300" onclick="toggleCart(false)">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-6 space-y-6" id="cart-items-list">
+            <!-- Dynamic Injection Slot -->
+        </div>
+
+        <div class="border-t border-pastelWarm/60 pt-6 space-y-4">
+            <div class="flex justify-between items-center text-sm">
+                <span class="text-pastelCharcoal/60 uppercase tracking-widest text-[10px] font-bold">Subtotal</span>
+                <span class="text-pastelTerracotta font-extrabold text-xl" id="cart-subtotal">$0.00</span>
+            </div>
+            <button class="w-full bg-pastelSage hover:bg-pastelSage/95 text-white font-bold py-4 rounded-xl uppercase tracking-widest text-[10px] transition-all duration-300 shadow-md shadow-pastelSage/10" onclick="triggerCheckout()">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Quick View Portal Modal -->
+<div class="modal-overlay fixed inset-0 bg-pastelCharcoal/40 backdrop-blur-md z-50 flex justify-center items-center p-4 invisible opacity-0 premium-transition" id="quick-view-modal" onclick="closeQuickView()">
+    <div class="modal-container w-full max-w-4xl bg-white/95 border border-pastelWarm/60 rounded-3xl overflow-hidden relative scale-95 transition-transform duration-500 shadow-2xl" onclick="event.stopPropagation()">
+
+        <button class="absolute top-5 right-5 w-8 h-8 bg-pastelCream/80 hover:bg-pastelSage hover:text-white rounded-full flex items-center justify-center text-pastelCharcoal transition-colors duration-300 z-10 shadow-sm" onclick="closeQuickView()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="h-[320px] md:h-[520px] bg-pastelWarm/50 relative">
+                <img id="modal-product-img" src="" class="w-full h-full object-cover filter brightness-[98%]" alt="Product Frame">
+            </div>
+
+            <div class="p-8 md:p-12 flex flex-col justify-center space-y-6">
+                <span class="text-[9px] uppercase tracking-[0.3em] text-pastelRose font-extrabold" id="modal-product-category">Dresses</span>
+                <h2 class="heading-serif text-3xl font-light text-pastelCharcoal leading-tight" id="modal-product-title">Product Title</h2>
+                <span class="text-pastelTerracotta font-bold text-2xl" id="modal-product-price">$0.00</span>
+                <p class="text-xs text-pastelCharcoal/70 leading-relaxed font-light" id="modal-product-desc">Editorial description mapping text area.</p>
+
+                <div class="space-y-3" id="size-selection-area">
+                    <span class="text-[9px] uppercase tracking-widest text-pastelCharcoal/60 font-bold block">Select Size</span>
+                    <div class="flex gap-2">
+                        <span class="border border-pastelWarm text-pastelCharcoal/70 hover:border-pastelSage hover:text-pastelSage px-4 py-2 rounded-lg text-xs cursor-pointer active">S</span>
+                    </div>
+                </div>
+
+                <button class="w-full bg-pastelSage hover:bg-pastelSage/95 text-white font-bold py-4 rounded-xl uppercase tracking-widest text-[10px] transition-all duration-300 shadow-md shadow-pastelSage/10" id="modal-add-bag-btn">
+                    Add to Bag
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Popup Notification -->
+<div class="toast-notification fixed bottom-6 left-1/2 -translate-x-1/2 bg-white/95 border border-pastelSage/20 text-pastelCharcoal px-8 py-4 rounded-2xl shadow-2xl z-50 flex items-center gap-3 transition-all duration-500 translate-y-24 opacity-0 pointer-events-none" id="toast-notif">
+    <i class="fa-solid fa-circle-check text-pastelSage text-sm"></i>
+    <span class="text-[9px] uppercase tracking-[0.2em] font-bold" id="toast-message">Added to Bag</span>
+</div>
+
+<!-- Traditional Action forms for redirection fallback -->
+<form id="traditionalAddForm" th:action="@{/cart/add}" method="post" style="display:none;">
+    <input type="hidden" name="productId" id="add_prodId">
+    <input type="hidden" name="size" id="add_size">
+    <input type="hidden" name="quantity" id="add_qty">
+</form>
+
+<form id="traditionalUpdateForm" th:action="@{/cart/update}" method="post" style="display:none;">
+    <input type="hidden" name="productId" id="upd_prodId">
+    <input type="hidden" name="size" id="upd_size">
+    <input type="hidden" name="quantity" id="upd_qty">
+</form>
+
+<form id="traditionalRemoveForm" th:action="@{/cart/remove}" method="post" style="display:none;">
+    <input type="hidden" name="productId" id="rem_prodId">
+    <input type="hidden" name="size" id="rem_size">
+</form>
+
+<form id="traditionalClearForm" th:action="@{/cart/clear}" method="post" style="display:none;"></form>
+
+<script th:inline="javascript">
+    // Safe extraction of simple configuration flags to protect server response stream
+    const isLoggedIn = /*[[${isLoggedIn != null ? isLoggedIn : false}]]*/ false;
+    const clearLocalCartFlag = /*[[${clearLocalCart != null ? clearLocalCart : false}]]*/ false;
+    let shoppingCart = [];
+
+    function toggleCart(show) {
+        const overlay = document.getElementById('cart-overlay');
+        const drawer = document.querySelector('.cart-drawer');
+        if (show) {
+            overlay.classList.remove('invisible', 'opacity-0');
+            drawer.classList.remove('translate-x-full');
+        } else {
+            overlay.classList.add('invisible', 'opacity-0');
+            drawer.classList.add('translate-x-full');
+        }
+    }
+
+    // Secure async loading that fetches database cart items safely to prevent serialization crashes
+    async function initializeCartPipeline() {
+        if (clearLocalCartFlag) {
+            localStorage.removeItem('vogue_cart');
+        }
+
+        if (isLoggedIn) {
+            try {
+                const response = await fetch('/api/cart');
+                if (response.ok) {
+                    const dbCartItemsRaw = await response.json();
+                    shoppingCart = dbCartItemsRaw.map(item => ({
+                        id: item.product.id.toString(),
+                        name: item.product.name,
+                        price: item.product.price,
+                        img: item.product.imageUrl,
+                        category: item.product.category,
+                        size: item.size,
+                        quantity: item.quantity
+                    }));
+                } else {
+                    console.error("Database Cart request yielded error status:", response.status);
+                    shoppingCart = [];
+                }
+            } catch (error) {
+                console.error("Async cart synchronization encountered a gateway error:", error);
+                shoppingCart = [];
+            }
+        } else {
+            shoppingCart = JSON.parse(localStorage.getItem('vogue_cart')) || [];
+        }
+        updateCartUI();
+    }
+
+    function addToBagDirect(id, name, price, img, category) {
+        addToCartLogic(id, name, parseFloat(price), img, category);
+    }
+
+    function addToCartLogic(id, name, price, img, category, selectedSize = 'S') {
+        if (isLoggedIn) {
+            document.getElementById('add_prodId').value = id;
+            document.getElementById('add_size').value = selectedSize;
+            document.getElementById('add_qty').value = 1;
+            document.getElementById('traditionalAddForm').submit();
+        } else {
+            const existingItem = shoppingCart.find(item => item.id === id && item.size === selectedSize);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                shoppingCart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    img: img,
+                    category: category,
+                    size: selectedSize,
+                    quantity: 1
+                });
+            }
+            localStorage.setItem('vogue_cart', JSON.stringify(shoppingCart));
+            updateCartUI();
+            showToast(`${name} added to bag`);
+            toggleCart(true);
+        }
+    }
+
+    function changeQty(id, size, change) {
+        const item = shoppingCart.find(item => item.id === id && item.size === size);
+        if (!item) return;
+
+        const newQty = item.quantity + change;
+
+        if (isLoggedIn) {
+            if (newQty <= 0) {
+                removeItem(id, size);
+            } else {
+                document.getElementById('upd_prodId').value = id;
+                document.getElementById('upd_size').value = size;
+                document.getElementById('upd_qty').value = newQty;
+                document.getElementById('traditionalUpdateForm').submit();
+            }
+        } else {
+            if (newQty <= 0) {
+                removeItem(id, size);
+            } else {
+                item.quantity = newQty;
+                localStorage.setItem('vogue_cart', JSON.stringify(shoppingCart));
+                updateCartUI();
+            }
+        }
+    }
+
+    function removeItem(id, size) {
+        if (isLoggedIn) {
+            document.getElementById('rem_prodId').value = id;
+            document.getElementById('rem_size').value = size;
+            document.getElementById('traditionalRemoveForm').submit();
+        } else {
+            shoppingCart = shoppingCart.filter(item => !(item.id === id && item.size === size));
+            localStorage.setItem('vogue_cart', JSON.stringify(shoppingCart));
+            updateCartUI();
+        }
+    }
+
+    function updateCartUI() {
+        const listContainer = document.getElementById('cart-items-list');
+        const totalBadge = document.getElementById('cart-badge');
+        const subtotalText = document.getElementById('cart-subtotal');
+
+        listContainer.innerHTML = '';
+
+        let totalCount = 0;
+        let subtotal = 0;
+
+        if (shoppingCart.length === 0) {
+            listContainer.innerHTML = `<div class="text-center text-pastelCharcoal/50 uppercase tracking-[0.2em] text-[10px] mt-16 font-bold">Your shopping bag is empty.</div>`;
+        } else {
+            shoppingCart.forEach(item => {
+                totalCount += item.quantity;
+                subtotal += (item.price * item.quantity);
+
+                const cartItemHTML = `
+                    <div class="flex gap-4 border-b border-pastelWarm/60 pb-4 items-center">
+                        <img class="w-16 h-20 object-cover rounded-xl bg-pastelWarm/50 border border-pastelWarm" src="${item.img}" alt="${item.name}">
+                        <div class="flex-1 space-y-1">
+                            <span class="text-[8px] uppercase tracking-widest text-pastelRose font-extrabold">${item.category} (Size: ${item.size})</span>
+                            <h3 class="text-xs font-bold text-pastelCharcoal truncate max-w-[200px]">${item.name}</h3>
+                            <span class="text-pastelTerracotta text-xs font-extrabold block">$${(item.price * item.quantity).toFixed(2)}</span>
+                            <div class="flex items-center gap-3 pt-1">
+                                <button class="w-5 h-5 border border-pastelWarm/80 rounded-full flex items-center justify-center text-pastelCharcoal/50 hover:text-pastelCharcoal hover:border-pastelCharcoal transition text-[10px]" onclick="changeQty('${item.id}', '${item.size}', -1)">-</button>
+                                <span class="text-xs text-pastelCharcoal font-semibold">${item.quantity}</span>
+                                <button class="w-5 h-5 border border-pastelWarm/80 rounded-full flex items-center justify-center text-pastelCharcoal/50 hover:text-pastelCharcoal hover:border-pastelCharcoal transition text-[10px]" onclick="changeQty('${item.id}', '${item.size}', 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="text-[8px] uppercase tracking-widest text-pastelRose font-bold hover:text-pastelTerracotta self-center" onclick="removeItem('${item.id}', '${item.size}')">Remove</button>
+                    </div>
+                `;
+                listContainer.insertAdjacentHTML('beforeend', cartItemHTML);
+            });
+        }
+
+        totalBadge.innerText = totalCount;
+        subtotalText.innerText = `$${subtotal.toFixed(2)}`;
+    }
+
+    function selectSize(element) {
+        const siblings = element.parentNode.children;
+        for (let sibling of siblings) {
+            sibling.classList.remove('border-pastelSage', 'text-pastelSage', 'font-bold');
+            sibling.classList.add('border-pastelWarm', 'text-pastelCharcoal/50');
+        }
+        element.classList.remove('border-pastelWarm', 'text-pastelCharcoal/50');
+        element.classList.add('border-pastelSage', 'text-pastelSage', 'font-bold');
+    }
+
+    function openQuickView(id, name, price, img, desc, category) {
+        document.getElementById('modal-product-img').src = img;
+        document.getElementById('modal-product-category').innerText = category;
+        document.getElementById('modal-product-title').innerText = name;
+        document.getElementById('modal-product-price').innerText = `$${parseFloat(price).toFixed(2)}`;
+        document.getElementById('modal-product-desc').innerText = desc;
+
+        const sizeArea = document.getElementById('size-selection-area');
+        if (category.toLowerCase() === 'makeup' || category.toLowerCase() === 'skincare') {
+            sizeArea.innerHTML = `
+                <span class="text-[9px] uppercase tracking-widest text-pastelCharcoal/60 font-bold block">Size Standard</span>
+                <div class="flex">
+                    <span class="border border-pastelSage text-pastelSage font-bold px-4 py-2 rounded-lg text-xs">Standard 50ml</span>
+                </div>
+            `;
+        } else if (category.toLowerCase() === 'footwear') {
+            sizeArea.innerHTML = `
+                <span class="text-[9px] uppercase tracking-widest text-pastelCharcoal/60 font-bold block">Select Shoe Size</span>
+                <div class="flex gap-2">
+                    <span class="border border-pastelSage text-pastelSage font-bold px-4 py-2 rounded-lg text-xs cursor-pointer" onclick="selectSize(this)">US 6</span>
+                    <span class="border border-pastelWarm text-pastelCharcoal/50 px-4 py-2 rounded-lg text-xs cursor-pointer hover:border-pastelSage hover:text-pastelSage transition" onclick="selectSize(this)">US 7</span>
+                    <span class="border border-pastelWarm text-pastelCharcoal/50 px-4 py-2 rounded-lg text-xs cursor-pointer hover:border-pastelSage hover:text-pastelSage transition" onclick="selectSize(this)">US 8</span>
+                </div>
+            `;
+        } else {
+            sizeArea.innerHTML = `
+                <span class="text-[9px] uppercase tracking-widest text-pastelCharcoal/60 font-bold block">Select Size</span>
+                <div class="flex gap-2">
+                    <span class="border border-pastelSage text-pastelSage font-bold px-4 py-2 rounded-lg text-xs cursor-pointer" onclick="selectSize(this)">S</span>
+                    <span class="border border-pastelWarm text-pastelCharcoal/50 px-4 py-2 rounded-lg text-xs cursor-pointer hover:border-pastelSage hover:text-pastelSage transition" onclick="selectSize(this)">M</span>
+                    <span class="border border-pastelWarm text-pastelCharcoal/50 px-4 py-2 rounded-lg text-xs cursor-pointer hover:border-pastelSage hover:text-pastelSage transition" onclick="selectSize(this)">L</span>
+                </div>
+            `;
+        }
+
+        const addBagBtn = document.getElementById('modal-add-bag-btn');
+        addBagBtn.onclick = function() {
+            const activeSizeElement = document.querySelector('#size-selection-area .border-pastelSage');
+            const selectedSize = activeSizeElement ? activeSizeElement.innerText : 'S';
+            addToCartLogic(id, name, parseFloat(price), img, category, selectedSize);
+            closeQuickView();
+        };
+
+        const overlay = document.getElementById('quick-view-modal');
+        const container = document.querySelector('.modal-container');
+        overlay.classList.remove('invisible', 'opacity-0');
+        container.classList.remove('scale-90');
+    }
+
+    function closeQuickView() {
+        const overlay = document.getElementById('quick-view-modal');
+        const container = document.querySelector('.modal-container');
+        overlay.classList.add('invisible', 'opacity-0');
+        container.classList.add('scale-90');
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById('toast-notif');
+        document.getElementById('toast-message').innerText = message;
+        toast.classList.remove('translate-y-24', 'opacity-0');
+
+        setTimeout(() => {
+            toast.classList.add('translate-y-24', 'opacity-0');
+        }, 2500);
+    }
+
+    function triggerCheckout() {
+        if (shoppingCart.length === 0) {
+            showToast("Your Bag is currently empty!");
+            return;
+        }
+
+        if (!isLoggedIn) {
+            showToast("Please sign in to place your order!");
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 1500);
+            return;
+        }
+
+        showToast("Redirecting securely to Checkout...");
+        setTimeout(() => {
+            window.location.href = "/checkout";
+        }, 1500);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeCartPipeline();
+    });
+</script>
+</body>
+</html>

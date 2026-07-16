@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VogueNest - Aesthetic Editorial Boutique</title>
+    <!-- Tailwind CSS Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelCream: '#FDFBF7',     /* Cozy Linen background */
+                        pastelWarm: '#F5ECE1',      /* Rich warm sand background for higher contrast split */
+                        pastelCharcoal: '#1E2321',  /* Premium soft high-contrast dark text */
+                        pastelSage: '#4A6154',      /* Muted, deep organic forest sage green */
+                        pastelRose: '#E09295',      /* Rich warm aesthetic rose pink */
+                        pastelGold: '#DDA15E',      /* Vibrant earth gold */
+                        pastelTerracotta: '#C96A53',/* Bright, highly aesthetic terracotta coral accent */
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .heading-serif { font-family: 'Playfair Display', serif; }
+
+        /* Custom Elegant Rotation for Logo Watermark */
+        .vertical-text {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        /* Ultra Smooth Transition for Layers */
+        .collage-img {
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Subtle Luxury Breathing Animation for Explore Button */
+        @keyframes subtle-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 20px -10px rgba(199, 106, 83, 0.3);
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 20px 30px -10px rgba(74, 97, 84, 0.4);
+            }
+        }
+        .pulsating-btn {
+            animation: subtle-pulse 3s infinite ease-in-out;
+        }
+
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-pastelCream text-pastelCharcoal min-h-screen relative overflow-x-hidden flex flex-col">
+
+<!-- Top Luxury Minimalist Header -->
+<header class="w-full px-8 md:px-16 py-6 flex justify-between items-center bg-pastelCream border-b border-pastelCharcoal/5 relative z-30">
+    <a href="/" class="heading-serif text-2xl font-bold tracking-widest text-pastelSage uppercase">
+        Vogue<span class="text-pastelCharcoal font-normal">Nest</span>
+    </a>
+    <nav class="flex items-center gap-8">
+        <span class="text-[10px] tracking-widest uppercase text-pastelCharcoal/60 cursor-default font-bold select-none hover:text-pastelTerracotta transition-colors">Collections</span>
+        <span class="text-[10px] tracking-widest uppercase text-pastelCharcoal/60 cursor-default font-bold select-none hover:text-pastelTerracotta transition-colors">Catalogue</span>
+        <a href="/login" class="bg-pastelSage hover:bg-pastelTerracotta text-white text-[9px] tracking-widest uppercase px-6 py-2.5 rounded-full transition-all duration-300 font-bold shadow-md shadow-pastelSage/10">
+            Account Log In
+        </a>
+    </nav>
+</header>
+
+<!-- Main Container division -->
+<main class="flex-1 w-full grid grid-cols-1 lg:grid-cols-12 relative z-10 min-h-[calc(100vh-80px)]">
+
+    <!-- Left side-  -->
+    <section class="lg:col-span-5 bg-pastelCream p-8 md:p-16 flex flex-col justify-between relative border-r border-pastelCharcoal/5 overflow-hidden">
+
+        <!-- Large Transparent Model Watermark Layer -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 opacity-15">
+            <div class="absolute bottom-10 left-10 w-[380px] h-[80%] border border-pastelCharcoal/10 p-2 rounded-2xl transform -rotate-3">
+                <img src="/images/model.jpg"
+                     class="w-full h-full object-cover rounded-xl filter grayscale contrast-125"
+                     alt="model.jpg">
+            </div>
+        </div>
+
+        <!-- Upper Row: Vertical VOGUENEST text, Category names, and Decorative badge -->
+        <div class="flex items-start justify-between relative z-10 mt-2">
+            <div class="flex items-start gap-12">
+                <!-- Vertical VOGUENEST-->
+                <div class="vertical-text text-pastelTerracotta font-black text-xl tracking-[0.5em] uppercase border-r border-pastelSage/20 pr-3 h-64 flex justify-center items-center">
+                    Voguenest
+                </div>
+
+                <!-- Categories Text Indicators-->
+                <div class="flex flex-col gap-6 pt-1 text-pastelCharcoal/30 font-semibold text-[11px] tracking-[0.25em] uppercase select-none">
+                    <div class="category-indicator hover-accessories transition-all duration-500 cursor-pointer hover:text-pastelTerracotta">
+                        <span class="inline-block w-2 h-2 rounded-full bg-pastelTerracotta mr-2 opacity-0 transition-opacity" id="dot-accessories"></span>Accessories
+                    </div>
+
+                    <div class="category-indicator hover-dresses transition-all duration-500 cursor-pointer text-pastelSage font-bold border-b-2 border-pastelSage pb-1 w-fit">
+                        <span class="inline-block w-2 h-2 rounded-full bg-pastelSage mr-2" id="dot-dresses"></span>Women's Dresses
+                    </div>
+
+                    <div class="category-indicator hover-footwear transition-all duration-500 cursor-pointer hover:text-pastelTerracotta">
+                        <span class="inline-block w-2 h-2 rounded-full bg-pastelTerracotta mr-2 opacity-0 transition-opacity" id="dot-footwear"></span>Footwear
+                    </div>
+
+                    <div class="category-indicator hover-makeup transition-all duration-500 cursor-pointer hover:text-pastelTerracotta">
+                        <span class="inline-block w-2 h-2 rounded-full bg-pastelTerracotta mr-2 opacity-0 transition-opacity" id="dot-makeup"></span>Makeup
+                    </div>
+
+                    <div class="category-indicator hover-skincare transition-all duration-500 cursor-pointer hover:text-pastelTerracotta">
+                        <span class="inline-block w-2 h-2 rounded-full bg-pastelTerracotta mr-2 opacity-0 transition-opacity" id="dot-skincare"></span>Skincare
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mark -->
+            <div class="hidden sm:flex flex-col items-center justify-center border border-pastelCharcoal/10 rounded-full w-24 h-24 p-3 text-center text-pastelCharcoal/40 text-[7px] tracking-widest uppercase font-semibold">
+                <i class="fa-solid fa-feather-pointed mb-1 text-xs text-pastelTerracotta"></i>
+                Est. 2026 Boutique
+            </div>
+        </div>
+
+        <!-- Lower Row: Landing branding texts and redirect button with bright colors -->
+        <div class="space-y-6 relative z-10 mt-12 lg:mt-0">
+            <!-- Collection Mark -->
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-[1px] bg-pastelTerracotta"></div>
+                <span class="text-[9px] uppercase tracking-[0.4em] text-pastelTerracotta font-bold">New Collection '26</span>
+            </div>
+
+            <!-- Brand Heading -->
+            <h2 class="heading-serif text-3xl sm:text-4xl lg:text-5xl font-light text-pastelCharcoal leading-[1.15]">
+                Discover Your <br>
+                <span class="italic text-pastelTerracotta font-semibold">Brightest Self</span>
+            </h2>
+
+            <!-- Editorial Description paragraph -->
+            <p class="text-xs text-pastelCharcoal/70 leading-relaxed font-light max-w-sm">
+                Indulge in our newly designed boutique collective. Higher contrasts, larger tactile silhouettes, and organic earthy textures made for effortless living.
+            </p>
+
+            <!-- EXPLORE COLLECTION Action Button styling -->
+            <div class="pt-4 flex items-center gap-4">
+                <a href="/categories" class="pulsating-btn inline-block bg-pastelSage hover:bg-pastelTerracotta text-white font-bold py-4 px-10 rounded-xl text-[9px] uppercase tracking-[0.3em] transition-all duration-500 shadow-lg">
+                    Explore Collection
+                </a>
+                <span class="text-[8px] uppercase tracking-[0.2em] text-pastelCharcoal/40 font-bold hidden sm:inline-block">Curated for elegance</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Right side: Overlapping Collage -->
+    <section class="lg:col-span-7 bg-pastelWarm p-8 md:p-12 relative flex items-center justify-center min-h-[550px] lg:min-h-0 select-none">
+
+        <div class="absolute inset-8 border border-pastelCharcoal/5 pointer-events-none rounded-3xl z-0"></div>
+
+        <div class="relative w-full h-full max-w-2xl aspect-square lg:aspect-auto lg:h-[82vh] z-10">
+
+            <!--Dresses-->
+            <div class="absolute top-[8%] left-[20%] w-[58%] h-[60%] z-10 overflow-hidden shadow-2xl rounded-2xl border-2 border-transparent hover:border-pastelSage collage-img cursor-pointer" id="img-dresses">
+                <img src="/images/dresses.jpg"
+                     class="w-full h-full object-cover brightness-[98%]"
+                     alt="dresses.jpg">
+                <!-- Floating category -->
+                <div class="absolute bottom-4 left-4 bg-pastelCream/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-widest text-pastelSage shadow-md transform translate-y-12 opacity-0 transition-all duration-500 hover-tag">
+                    01 / Dresses
+                </div>
+            </div>
+
+            <!-- Makeup -->
+            <div class="absolute top-[18%] left-[-2%] w-[38%] h-[34%] z-20 overflow-hidden shadow-xl rounded-2xl border-2 border-transparent hover:border-pastelTerracotta collage-img cursor-pointer" id="img-makeup">
+                <img src="/images/makeup.jpg"
+                     class="w-full h-full object-cover"
+                     alt="makeup.jpg">
+                <div class="absolute bottom-4 left-4 bg-pastelCream/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-widest text-pastelTerracotta shadow-md transform translate-y-12 opacity-0 transition-all duration-500 hover-tag">
+                    02 / Makeup
+                </div>
+            </div>
+
+            <!-- Skincare -->
+            <div class="absolute top-[10%] right-[-2%] w-[42%] h-[38%] z-20 overflow-hidden shadow-xl rounded-2xl border-2 border-transparent hover:border-pastelSage collage-img cursor-pointer" id="img-skincare">
+                <img src="/images/skincare.jpg"
+                     class="w-full h-full object-cover"
+                     alt="skincare.jpg">
+                <div class="absolute bottom-4 left-4 bg-pastelCream/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-widest text-pastelSage shadow-md transform translate-y-12 opacity-0 transition-all duration-500 hover-tag">
+                    03 / Skincare
+                </div>
+            </div>
+
+            <!-- Accessories Shelf -->
+            <div class="absolute bottom-[3%] left-[2%] w-[46%] h-[38%] z-20 overflow-hidden shadow-xl rounded-2xl border-2 border-transparent hover:border-pastelTerracotta collage-img cursor-pointer" id="img-accessories">
+                <img src="/images/accessories.jpg"
+                     class="w-full h-full object-cover"
+                     alt="accessories.jpg">
+                <div class="absolute bottom-4 left-4 bg-pastelCream/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-widest text-pastelTerracotta shadow-md transform translate-y-12 opacity-0 transition-all duration-500 hover-tag">
+                    04 / Accessories
+                </div>
+            </div>
+
+            <!--Heels Footwear Shelf  -->
+            <div class="absolute bottom-[6%] right-[1%] w-[44%] h-[32%] z-20 overflow-hidden shadow-xl rounded-2xl border-2 border-transparent hover:border-pastelSage collage-img cursor-pointer" id="img-footwear">
+                <img src="/images/footwear.jpeg"
+                     class="w-full h-full object-cover"
+                     alt="footwear.jpeg">
+                <div class="absolute bottom-4 left-4 bg-pastelCream/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-widest text-pastelSage shadow-md transform translate-y-12 opacity-0 transition-all duration-500 hover-tag">
+                    05 / Footwear
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- hover links binding scripts  -->
+<script>
+    //hover categories list to right side collage images
+    const hoverMappings = {
+        'hover-accessories': 'img-accessories',
+        'hover-dresses': 'img-dresses',
+        'hover-footwear': 'img-footwear',
+        'hover-makeup': 'img-makeup',
+        'hover-skincare': 'img-skincare'
+    };
+
+    const imageTargets = {
+        'img-accessories': document.getElementById('img-accessories'),
+        'img-dresses': document.getElementById('img-dresses'),
+        'img-footwear': document.getElementById('img-footwear'),
+        'img-makeup': document.getElementById('img-makeup'),
+        'img-skincare': document.getElementById('img-skincare')
+    };
+
+    Object.keys(imageTargets).forEach(id => {
+        const imgElement = imageTargets[id];
+        if (imgElement) {
+            const innerTag = imgElement.querySelector('.hover-tag');
+
+            imgElement.addEventListener('mouseenter', () => {
+                // Highly amplified scale and pop out effect
+                imgElement.style.transform = 'scale(1.08) translateY(-6px)';
+                imgElement.style.zIndex = '40';
+                imgElement.style.boxShadow = '0 25px 50px -12px rgba(199, 106, 83, 0.4)';
+                imgElement.style.borderColor = '#C96A53';
+
+                if (innerTag) {
+                    innerTag.style.transform = 'translateY(0)';
+                    innerTag.style.opacity = '1';
+                }
+
+                document.querySelectorAll('.category-indicator').forEach(el => {
+                    if (!el.classList.contains('hover-dresses')) {
+                        el.classList.remove('text-pastelSage', 'font-bold', 'border-b-2', 'border-pastelSage', 'pb-1');
+                        el.classList.add('text-pastelCharcoal/30');
+                    }
+                    const dot = el.querySelector('span');
+                    if (dot && dot.id !== 'dot-dresses') {
+                        dot.classList.add('opacity-0');
+                    }
+                });
+
+                const mappingClass = Object.keys(hoverMappings).find(key => hoverMappings[key] === id);
+                if (mappingClass) {
+                    const textNode = document.querySelector('.' + mappingClass);
+                    if (textNode) {
+                        textNode.classList.remove('text-pastelCharcoal/30');
+                        textNode.classList.add('text-pastelTerracotta', 'font-bold', 'scale-105', 'transition-transform');
+
+                        const correspondingDotId = mappingClass.replace('hover-', 'dot-');
+                        const dotNode = document.getElementById(correspondingDotId);
+                        if (dotNode) {
+                            dotNode.classList.remove('opacity-0');
+                        }
+                    }
+                }
+            });
+
+            imgElement.addEventListener('mouseleave', () => {
+                imgElement.style.transform = 'none';
+                imgElement.style.zIndex = id === 'img-dresses' ? '10' : '20';
+                imgElement.style.boxShadow = '';
+                imgElement.style.borderColor = 'transparent';
+
+                // Hide floating overlay category indicator
+                if (innerTag) {
+                    innerTag.style.transform = 'translateY(12px)';
+                    innerTag.style.opacity = '0';
+                }
+
+                const mappingClass = Object.keys(hoverMappings).find(key => hoverMappings[key] === id);
+                if (mappingClass) {
+                    const textNode = document.querySelector('.' + mappingClass);
+                    if (textNode && mappingClass !== 'hover-dresses') {
+                        textNode.classList.remove('text-pastelTerracotta', 'font-bold', 'scale-105');
+                        textNode.classList.add('text-pastelCharcoal/30');
+
+                        const correspondingDotId = mappingClass.replace('hover-', 'dot-');
+                        const dotNode = document.getElementById(correspondingDotId);
+                        if (dotNode) {
+                            dotNode.classList.add('opacity-0');
+                        }
+                    }
+                }
+
+                // Restore default dresses highlight state
+                const defaultDressNode = document.querySelector('.hover-dresses');
+                if (defaultDressNode) {
+                    defaultDressNode.classList.remove('text-pastelCharcoal/30');
+                    defaultDressNode.classList.add('text-pastelSage', 'font-bold', 'border-b-2', 'border-pastelSage');
+                    const defaultDot = document.getElementById('dot-dresses');
+                    if (defaultDot) {
+                        defaultDot.classList.remove('opacity-0');
+                    }
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
