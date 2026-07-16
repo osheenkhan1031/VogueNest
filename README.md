@@ -197,6 +197,6 @@ To scale VogueNest into a market-ready production system, the following integrat
 
 Osheen — Aspiring Software Engineer
 
-Email: osheenkhan1031@gmail.com
+Email: osheenk66@gmail.com
 
 LinkedIn: [osheenkhan1031](https://linkedin.com/in/osheenkhan1031)
