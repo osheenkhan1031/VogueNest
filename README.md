@@ -10,7 +10,7 @@ Experience the live application deployed on Render:
 ---
 
 ## 📸 Storefront Preview
-![Landing Page](https://raw.githubusercontent.com/osheenkhan1031/VogueNest/main/src/main/resources/static/images/landing.png)
+![Landing Page](https://raw.githubusercontent.com/osheenkhan1031/VogueNest/main/src/main/resources/screenshots/landing.png)
 
 ---
 
