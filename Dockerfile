@@ -10,6 +10,4 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 10000
-
-# ENTRYPOINT ka syntax fix kiya hai
 ENTRYPOINT ["java", "-jar", "app.jar"]
