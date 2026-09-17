@@ -9,6 +9,11 @@ Experience the live application deployed on Render:
 
 ---
 
+## 📸 Storefront Preview
+![Landing Page](https://raw.githubusercontent.com/osheenkhan1031/VogueNest/main/src/main/resources/static/images/landing.png)
+
+---
+
 ## ✨ Key Features
 - **Curated Editorial Aesthetics:** Crafted with a custom pastel-cream background, forest sage accents, and terracotta highlights.
 - **Dual-Role Session Management:** Unified authentication routing that automatically directs regular shoppers to their active cart context and administrators to inventory dashboards.
@@ -18,26 +23,9 @@ Experience the live application deployed on Render:
 
 ---
 
-## 📸 Storefront Preview
-
-### Minimalist Editorial Landing Page
-![Model Showcase](https://raw.githubusercontent.com/osheenkhan1031/VogueNest/main/src/main/resources/static/images/model.jpg)
-
-### Active Storefront Catalogue Page
-![Accessories Preview](https://raw.githubusercontent.com/osheenkhan1031/VogueNest/main/src/main/resources/static/images/accessories.jpg)
-
----
-
 ## 🛠️ Tech Stack & Architecture
 - **Backend:** Java, Spring Boot 3 (Spring MVC, Spring Data JPA, Spring Security)
 - **Frontend:** Thymeleaf, HTML5, CSS3, Tailwind CSS
 - **Database:** MySQL (powered by Aiven cloud)
 - **Build Tool:** Apache Maven
 - **Containerization & Deployment:** Docker (Multi-stage JDK/JRE build) hosted on Render
-
----
-
-## 🚀 Future Plans & Roadmap
-- **Spring Security & OAuth2:** Implementing JWT-based stateless API security and federated social logins.
-- **Payment Gateway Integration:** Connecting Stripe or Razorpay webhooks for live payment processing.
-- **Cloud Media Pipeline:** Moving local static image assets to AWS S3 or Cloudinary for fast CDN delivery.
