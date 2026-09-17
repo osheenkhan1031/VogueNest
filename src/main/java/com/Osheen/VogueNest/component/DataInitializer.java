@@ -5,8 +5,9 @@ import com.Osheen.VogueNest.model.User;
 import com.Osheen.VogueNest.repository.ProductRepository;
 import com.Osheen.VogueNest.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value; // Import properly for environment injection
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,9 @@ public class DataInitializer implements CommandLineRunner {
     // Pulls secure admin password without keeping plaintext credentials committed to GitHub
     @Value("${app.admin.password}")
     private String adminPassword;
+
+    // Initialize BCrypt encoder to securely hash the default admin password
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     @Transactional
@@ -142,15 +146,18 @@ public class DataInitializer implements CommandLineRunner {
             System.out.println(">> VogueNest Seed Data Successfully Injected! <<");
         }
 
-        // Uses property placeholders instead of hardcoded values
+        // Uses property placeholders and encodes the password with BCrypt
         if (userRepository.findByEmail(adminEmail).isEmpty()) {
             User admin = new User();
             admin.setFullName("VogueNest Admin");
             admin.setEmail(adminEmail);
-            admin.setPassword(adminPassword); // Protected and dynamic
+
+            // FIX: Hash the admin password securely using BCrypt so login succeeds!
+            admin.setPassword(passwordEncoder.encode(adminPassword));
+
             admin.setRole("ADMIN");
             userRepository.save(admin);
-            System.out.println(">> Default Admin Account Created dynamically! <<");
+            System.out.println(">> Default Admin Account Created dynamically with secure password hash! <<");
         }
     }
 }
