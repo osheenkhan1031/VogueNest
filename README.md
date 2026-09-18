@@ -24,8 +24,15 @@ Experience the live application deployed on Render:
 ---
 
 ## 🛠️ Tech Stack & Architecture
-- **Backend:** Java, Spring Boot 3 (Spring MVC, Spring Data JPA, Spring Security)
+- **Backend:** Java, Spring Boot 3 (Spring MVC, Spring Data JPA)
+- **Security:** Custom session-based authentication with role-based access control; passwords hashed using Spring Security's `BCryptPasswordEncoder`
 - **Frontend:** Thymeleaf, HTML5, CSS3, Tailwind CSS
 - **Database:** MySQL (powered by Aiven cloud)
 - **Build Tool:** Apache Maven
 - **Containerization & Deployment:** Docker (Multi-stage JDK/JRE build) hosted on Render
+
+---
+
+## 🗺️ Future Scope
+- Migrate to full Spring Security (filter chains, method-level `@PreAuthorize`, OAuth2 login) in place of manual session checks.
+- Integrate a real payment gateway (Razorpay/Stripe) for live transactions.
